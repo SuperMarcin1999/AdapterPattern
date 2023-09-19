@@ -9,19 +9,26 @@ namespace Demo.Clip02
         protected override int ClipNumber { get; } = 2;
         protected override void Implementation()
         {
-            KeywordIndex<Book> index = new KeywordIndex<Book>();
+            KeywordIndex<IWithSimpleKeywords> index = new KeywordIndex<IWithSimpleKeywords>();
 
-            Book item = new Book("The Largest Book Ever", "long", "boring");
-            Video anotherItem = new Video("The Longest Video Ever");
+            Book book = new Book("The Largest Book Ever", "long", "boring");
+            Video video = new Video("The Longest Video Ever");
 
-            index.Add(item);
+            var videoKeywords = new VideoKeywords(video);
+            
+            index.Add(book);
+            index.Add(videoKeywords);
             Console.WriteLine(index);
             Console.WriteLine();
 
             string query = "long";
-            IEnumerable<Book> results = index.Find(query);
-
-            Console.WriteLine($"Searching for '{query}': {results.ToSequenceString(", ")}");
+            Console.WriteLine("Find:");
+            IEnumerable<IWithSimpleKeywords> results1 = index.Find(query);
+            Console.WriteLine($"Searching for '{query}': {results1.ToSequenceString(", ")}");
+            
+            Console.WriteLine("Find approximate:");
+            IEnumerable<IWithSimpleKeywords> results2 = index.FindApproximate(query);
+            Console.WriteLine($"Searching for '{query}': {results2.ToSequenceString(", ")}");
         }
     }
 }
