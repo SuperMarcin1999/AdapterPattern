@@ -5,10 +5,12 @@ namespace Demo.Clip03
     public class Video : IEquatable<Video>
     {
         public string Title { get; }
+        public string Handler { get; }
 
-        public Video(string title)
+        public Video(string title, string handler)
         {
             this.Title = title;
+            Handler = handler;
         }
 
         public bool Equals(Video other) =>

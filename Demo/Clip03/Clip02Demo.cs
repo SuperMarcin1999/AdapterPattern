@@ -12,11 +12,19 @@ namespace Demo.Clip03
             KeywordIndex<IWithSimpleKeywords> index = new KeywordIndex<IWithSimpleKeywords>();
 
             Book item1 = new Book("The Largest Book Ever", "long", "boring");
-            Video anotherItem = new Video("The Longest Video Ever");
-            VideoKeywords item2 = new VideoKeywords(anotherItem);
+            Video anotherItem = new Video("The Long, Long Ad", "making-super-long-ad");
+
+            KeywordsRepository repo = new KeywordsRepository();
+            IEnumerable<string> keywords = repo.Find(anotherItem.Handler);
+            
+            VideoKeywords item2 = new VideoKeywords(anotherItem, keywords);
+
+            Video yetAnotherItem = new Video("Scooby Doo", "sia-ba-du");
+            VideoKeywords item3 = new VideoKeywords(yetAnotherItem, repo.Find(yetAnotherItem.Handler));
 
             index.Add(item1);
             index.Add(item2);
+            index.Add(item3);
             Console.WriteLine(index);
             Console.WriteLine();
 
