@@ -16,8 +16,8 @@ namespace Demo
             // new Clip04Demo().Run();
 
             Console.WriteLine();
-            Console.Write("Press ENTER to continue . . . ");
-            Console.ReadLine();
+            // Console.Write("Press ENTER to continue . . . ");
+            // Console.ReadLine();
         }
     }
 }

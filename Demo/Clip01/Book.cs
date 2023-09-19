@@ -2,7 +2,7 @@
 
 namespace Demo.Clip01
 {
-    public class Book
+    public class Book : IItemWithKeywords
     {
         public string Title { get; }
         public IEnumerable<string> Keywords { get; }

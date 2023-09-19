@@ -5,12 +5,12 @@ using Demo.Common;
 
 namespace Demo.Clip01
 {
-    public class KeywordIndex
+    public class KeywordIndex<T> where T : IItemWithKeywords
     {
-        private IDictionary<string, IList<Book>> Index { get; } =
-            new Dictionary<string, IList<Book>>();
+        private IDictionary<string, IList<T>> Index { get; } =
+            new Dictionary<string, IList<T>>();
 
-        public void Add(Book item)
+        public void Add(T item)
         {
             foreach (string keyword in item.Keywords)
             {
@@ -18,23 +18,23 @@ namespace Demo.Clip01
             }
         }
 
-        private void Add(string keyword, Book item) => 
+        private void Add(string keyword, T item) => 
             this.GetListFor(keyword).Add(item);
 
-        private IList<Book> GetListFor(string keyword) =>
-            this.Index.TryGetValue(keyword, out IList<Book> list) ? list
+        private IList<T> GetListFor(string keyword) =>
+            this.Index.TryGetValue(keyword, out IList<T> list) ? list
             : this.CreateListFor(keyword);
 
-        private IList<Book> CreateListFor(string keyword) 
+        private IList<T> CreateListFor(string keyword) 
         {
-            IList<Book> list = new List<Book>();
+            IList<T> list = new List<T>();
             this.Index[keyword] = list;
             return list;
         }
 
-        public IEnumerable<Book> Find(string keyword) =>
-            this.Index.TryGetValue(keyword.ToLowerInvariant(), out IList<Book> books) ? books
-            : Enumerable.Empty<Book>();
+        public IEnumerable<T> Find(string keyword) =>
+            this.Index.TryGetValue(keyword.ToLowerInvariant(), out IList<T> books) ? books
+            : Enumerable.Empty<T>();
 
         public override string ToString() =>
             this.Index
